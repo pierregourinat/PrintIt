@@ -28,16 +28,21 @@ const slideTagline = document.querySelector("#banner p");
 
 arrowLeft.addEventListener("click", function () {
   console.log("Flèche gauche cliquée");
-  updateDots(currentSlide - 1);
+  let newIndex = currentSlide - 1;
+  if (newIndex < 0) {
+    newIndex = slides.length - 1;
+  }
+  updateDots(newIndex);
 });
 
 arrowRight.addEventListener("click", function () {
   console.log("Flèche droite cliquée");
-  updateDots(currentSlide + 1);
+  let = newIndex = currentSlide + 1;
+  if (newIndex >= slides.length) {
+    newIndex = 0;
+  }
+  updateDots(newIndex);
 });
-
-// Bullet points
-const dotsContainer = document.querySelector(".dots");
 
 // Variable diapo actuelle
 let currentSlide = 0;
@@ -56,13 +61,14 @@ function updateDots(index) {
     }
   });
   currentSlide = index;
-
   slideImage.src = slides[index].image;
   console.log("Image mise à jour");
-
   slideTagline.innerHTML = slides[index].tagLine;
   console.log("Tagline mise à jour");
 }
+
+// Bullet points
+const dotsContainer = document.querySelector(".dots");
 
 slides.forEach(function (slide, index) {
   const dot = document.createElement("div");
