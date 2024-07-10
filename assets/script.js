@@ -22,12 +22,18 @@ const slides = [
 const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 
+// Variables img et tagLine
+const slideImage = document.querySelector(".banner-img");
+const slideTagline = document.querySelector("#banner p");
+
 arrowLeft.addEventListener("click", function () {
   console.log("Flèche gauche cliquée");
+  updateDots(currentSlide - 1);
 });
 
 arrowRight.addEventListener("click", function () {
   console.log("Flèche droite cliquée");
+  updateDots(currentSlide + 1);
 });
 
 // Bullet points
@@ -39,7 +45,8 @@ let currentSlide = 0;
 // Fonction mise à jour des bullet points
 function updateDots(index) {
   console.log("Maj bullet points index", index);
-  document.querySelectorAll(".dot").forEach((dot, idx), function () {
+
+  document.querySelectorAll(".dot").forEach((dot, idx) => {
     if (idx === index) {
       dot.classList.add("dot_selected");
       console.log(`Bullet point ${idx} sélectionné`);
@@ -48,12 +55,15 @@ function updateDots(index) {
       console.log(`Bullet point ${idx} déselectionné`);
     }
   });
+  currentSlide = index;
 }
 
 slides.forEach(function (slide, index) {
   const dot = document.createElement("div");
   dot.classList.add("dot");
-  if (index === 0) dot.classList.add("dot_selected");
+  if (index === 0) {
+    dot.classList.add("dot_selected");
+  }
   dot.addEventListener("click", function () {
     console.log("Bullet point cliqué, index :", index);
     updateDots(index);
@@ -61,6 +71,3 @@ slides.forEach(function (slide, index) {
   dotsContainer.appendChild(dot);
   console.log("Bullet point ajouté pour l'image :", slide.image);
 });
-
-// Initialisation de la première diapositive
-updateDots(currentSlide);
