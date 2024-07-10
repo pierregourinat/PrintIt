@@ -56,6 +56,12 @@ function updateDots(index) {
     }
   });
   currentSlide = index;
+
+  slideImage.src = slides[index].image;
+  console.log("Image mise à jour");
+
+  slideTagline.innerHTML = slides[index].tagLine;
+  console.log("Tagline mise à jour");
 }
 
 slides.forEach(function (slide, index) {
