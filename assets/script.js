@@ -27,45 +27,30 @@ const slideImage = document.querySelector(".banner-img");
 const slideTagline = document.querySelector("#banner p");
 
 arrowLeft.addEventListener("click", function () {
-  //console.log("Flèche gauche cliquée");
-  let newIndex = currentSlide - 1;
-  if (newIndex < 0) {
-    newIndex = slides.length - 1;
-  }
+  let newIndex = (currentSlide - 1 + slides.length) % slides.length;
   updateDots(newIndex);
 });
 
 arrowRight.addEventListener("click", function () {
-  //console.log("Flèche droite cliquée");
-  let = newIndex = currentSlide + 1;
-  if (newIndex >= slides.length) {
-    newIndex = 0;
-  }
+  let newIndex = (currentSlide + 1) % slides.length;
   updateDots(newIndex);
 });
 
 // Variable diapo actuelle
 let currentSlide = 0;
 
-// Fonction mise à jour des bullet points
+// Fonction mise à jour de l'image, la tagline et le bullet point en fonction de l'index
 function updateDots(index) {
-  //console.log("Maj bullet points index", index);
-
   document.querySelectorAll(".dot").forEach((dot, idx) => {
     if (idx === index) {
       dot.classList.add("dot_selected");
-      //console.log(`Bullet point ${idx} sélectionné`);
     } else {
       dot.classList.remove("dot_selected");
-      //console.log(`Bullet point ${idx} déselectionné`);
     }
   });
   currentSlide = index;
-  //console.log("assets/images/slideshow/" + slides[index].image);
   slideImage.src = "assets/images/slideshow/" + slides[index].image;
-  //console.log("Image mise à jour");
   slideTagline.innerHTML = slides[index].tagLine;
-  //console.log("Tagline mise à jour");
 }
 
 // Bullet points
@@ -78,9 +63,7 @@ slides.forEach(function (slide, index) {
     dot.classList.add("dot_selected");
   }
   dot.addEventListener("click", function () {
-    //console.log("Bullet point cliqué, index :", index);
     updateDots(index);
   });
   dotsContainer.appendChild(dot);
-  //console.log("Bullet point ajouté pour l'image :", slide.image);
 });
